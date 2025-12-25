@@ -7,6 +7,7 @@ import { images } from "@/constants/images";
 import MovieCard from "../components/MovieCard";
 import SearchBar from "../components/SearchBar";
 import { fetchMovies } from "../services/api";
+import { updateSearcCount } from "../services/appwrite";
 import useFetch from "../services/useFetch";
 
 const Search = () => {
@@ -32,8 +33,12 @@ const Search = () => {
             return;
         }
 
-        const timeout = setTimeout(() => {
-            loadMovies();
+        const timeout = setTimeout(async () => {
+            const results = await loadMovies();
+
+            if (results?.length > 0 && results[0]) {
+                await updateSearcCount(searchQuery, results[0]);
+            }
         }, 500);
 
         return () => clearTimeout(timeout);
