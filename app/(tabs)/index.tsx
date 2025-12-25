@@ -1,13 +1,22 @@
 import { useRouter } from "expo-router";
-import { Image, ScrollView, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "react-native";
 
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import SearchBar from "../components/SearchBar";
+import { fetchMovies } from "../services/api";
+import useFetch from "../services/useFetch";
 
 export default function Index() {
   const router = useRouter();
 
+  const {
+    data: movies,
+    loading: movieLoading,
+    error: movieError,
+  } = useFetch(() => fetchMovies(
+    { query: '' }
+  ));
 
   return (
     <View
@@ -28,14 +37,52 @@ export default function Index() {
           source={icons.logo}
           className="w-12 h-10 mt-20 mb-5 mx-auto"
         />
-        <View className="flex-1 mt-5">
-          <SearchBar
-            onPress={() => router.push('/search')}
-            placeholder="Search"
-          />
-        </View>
-      </ScrollView>
-    </View>
+
+        {
+          movieLoading ? (
+            <ActivityIndicator
+              size="large"
+              color="#0000ff"
+              className="mt-10 self-center"
+            />
+          ) : movieError ? (
+            <Text>Error: ${movieError?.message}</Text>
+          ) : (
+            <View className="flex-1 mt-5">
+              <SearchBar
+                onPress={() => router.push('/search')}
+                placeholder="Search"
+              />
+              <>
+                <Text
+                  className="text-lg text-white font-bold mt-5 mb-3"
+                >
+                  Latest Movies
+                </Text>
+
+                <FlatList
+                  data={movies}
+                  renderItem={({ item }) => (
+                    <Text className="text-white">
+                      {item.title}
+                    </Text>
+                  )}
+                  keyExtractor={(item) => item.id.toString()}
+                  numColumns={3}
+                  columnWrapperStyle={{
+                    justifyContent: 'flex-start',
+                    gap: 20,
+                    paddingRight: 5,
+                    marginBottom: 10,
+                  }}
+                  className="mt-2 pb-32"
+                  scrollEnabled={false}
+                />
+              </>
+            </View>
+          )}
+      </ScrollView >
+    </View >
   );
 }
 
@@ -44,7 +91,7 @@ export default function Index() {
 
 
 /*
-1:04
+1:39
 
 // Screen with Styled Components
 import { StyleSheet, Text, View } from "react-native";
