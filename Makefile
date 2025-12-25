@@ -1,10 +1,10 @@
-.PHONY: dev
+.PHONY: dev dev-lan emulator-android
 
 dev:
 	npx expo start --clear
 
 dev-lan:
-	npx expo start --lan --clear
+	REACT_NATIVE_PACKAGER_HOSTNAME=10.42.0.1 npx expo start --lan --clear
 
 emulator-android:
 	adb kill-server
