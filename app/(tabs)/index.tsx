@@ -3,6 +3,7 @@ import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "reac
 
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
+import MovieCard from "../components/MovieCard";
 import SearchBar from "../components/SearchBar";
 import { fetchMovies } from "../services/api";
 import useFetch from "../services/useFetch";
@@ -63,9 +64,9 @@ export default function Index() {
                 <FlatList
                   data={movies}
                   renderItem={({ item }) => (
-                    <Text className="text-white">
-                      {item.title}
-                    </Text>
+                    <MovieCard
+                      {...item}
+                    />
                   )}
                   keyExtractor={(item) => item.id.toString()}
                   numColumns={3}
