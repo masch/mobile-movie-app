@@ -13,7 +13,7 @@ export default function Index() {
 
   const {
     data: movies,
-    loading: movieLoading,
+    loading: moviesLoading,
     error: movieError,
   } = useFetch(() => fetchMovies(
     { query: '' }
@@ -40,7 +40,7 @@ export default function Index() {
         />
 
         {
-          movieLoading ? (
+          moviesLoading ? (
             <ActivityIndicator
               size="large"
               color="#0000ff"

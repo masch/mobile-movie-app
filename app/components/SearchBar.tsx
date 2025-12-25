@@ -4,11 +4,13 @@ import { Image, TextInput, View } from "react-native";
 import { icons } from "@/constants/icons";
 
 interface Props {
-    onPress?: () => void;
     placeholder: string;
+    value?: string;
+    onChangeText?: (text: string) => void;
+    onPress?: () => void;
 }
 
-const SearchBar = ({ onPress, placeholder }: Props) => {
+const SearchBar = ({ placeholder, value, onChangeText, onPress }: Props) => {
     return (
         <View
             className="flex-row items-center bg-dark-200 rounded-full px-5 py-4"
@@ -22,8 +24,8 @@ const SearchBar = ({ onPress, placeholder }: Props) => {
             <TextInput
                 onPress={onPress}
                 placeholder={placeholder}
-                value=""
-                onChangeText={(text) => { }}
+                value={value}
+                onChangeText={onChangeText}
                 placeholderTextColor="#ab8bdb"
                 className="flex-1 ml-2 text-white"
             />
