@@ -34,6 +34,7 @@ export default function Index() {
       <Image
         source={images.bg}
         className="absolute w-full z-0"
+        resizeMode="cover"
       />
       <ScrollView
         className="flex-1 px-5"
@@ -68,25 +69,26 @@ export default function Index() {
                     <Text className="text-lg text-white font-bold mb-3">
                       Trending Movies
                     </Text>
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      className="mb-4 mt-3"
+                      data={trendingMovies}
+                      contentContainerStyle={{
+                        gap: 26,
+                      }}
+                      renderItem={({ item, index }) => (
+                        <TrendingCard movie={item} index={index} />
+                      )}
+                      keyExtractor={(item) => item.movie_id.toString()}
+                      ItemSeparatorComponent={() => (
+                        <View className="w-4" />
+                      )}
+                    />
                   </View>
                 )
               }
               <>
-
-                <FlatList
-                  className="mb-4 mt-3"
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  ItemSeparatorComponent={() => (
-                    <View className="w-4" />
-                  )}
-                  data={trendingMovies}
-                  renderItem={({ item, index }) => (
-                    <TrendingCard movie={item} index={index} />
-                  )}
-                  keyExtractor={(item) => item.movie_id.toString()}
-                />
-
                 <Text
                   className="text-lg text-white font-bold mt-5 mb-3"
                 >
