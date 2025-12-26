@@ -4,16 +4,6 @@ import MaskedView from "@react-native-masked-view/masked-view";
 
 import { images } from "@/constants/images";
 import { Link } from "expo-router";
-import React from "react";
-
-interface TrendingCardProps {
-    movie: {
-        movie_id: string;
-        title: string;
-        poster_url: string;
-    };
-    index: number;
-}
 
 const TrendingCard = ({ movie: { movie_id, title, poster_url }, index }: TrendingCardProps) => {
     return (
