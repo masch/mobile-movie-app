@@ -1,4 +1,3 @@
-import React from "react";
 import { Image, TextInput, View } from "react-native";
 
 import { icons } from "@/constants/icons";
