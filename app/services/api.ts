@@ -26,4 +26,25 @@ export const fetchMovies = async ({ query }: { query: string }) => {
     return data.results;
 }
 
+export const fetchMovieDetail = async ({ id }: { id: string }): Promise<Movie> => {
+    try {
+        const endpoint = `${TMDB_CONFIG.BASE_URL}/movie/${id}`;
+        const response = await fetch(endpoint, {
+            method: 'GET',
+            headers: TMDB_CONFIG.HEADERS,
+        });
+        if (!response.ok) {
+            // @ts-ignore
+            throw new Error("Failed to fetch movie detail", response.statusText);
+        }
+
+        const data = await response.json();
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
 export default fetchMovies;
